@@ -1,0 +1,16 @@
+* {
+    font-family: sans-serif;
+}
+
+body {
+    background-color: gray;
+}
+
+img {
+    width: 100%;
+}
+
+.board {
+    display: grid;
+    grid-template-columns: 14.28% 14.28% 14.28% 14.28% 14.28% 14.28% 14.28%;
+}
