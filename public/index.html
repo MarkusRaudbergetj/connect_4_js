@@ -4,10 +4,25 @@
         <meta charset="UTF-8">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
         <title>Read File</title>
+        <link rel="stylesheet" href="styles.css">
         <script src="index.js"></script>
     </head>
     <body>
-        <p id="display">1</p>
-        <button onclick="add1()">add</button>
+        <div class="top">
+            <label for="p1">Player 1</label>
+            <input type="checkbox" id="p1">
+            <label for="p2">Player 2</label>
+            <input type="checkbox" id="p2">
+            <div id="turnDisplay"> 's Turn</div>
+        </div>      
+        <div class="board" id="bgrid">
+            <button class="buttons"></button>
+            <button class="buttons"></button>
+            <button class="buttons"></button>
+            <button class="buttons"></button>
+            <button class="buttons"></button>
+            <button class="buttons"></button>
+            <button class="buttons"></button>
+        </div>
     </body>
 </html>
