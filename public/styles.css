@@ -4,13 +4,35 @@
 
 body {
     background-color: gray;
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
 }
 
 img {
     width: 100%;
+    height: 100%;
 }
 
 .board {
     display: grid;
-    grid-template-columns: 14.28% 14.28% 14.28% 14.28% 14.28% 14.28% 14.28%;
+    grid-template-columns: 14.28vw 14.28vw 14.28vw 14.28vw 14.28vw 14.28vw 14.28vw;
+    grid-template-rows: 12vh 12vh 12vh 12vh 12vh 12vh 12vh ;
+}
+
+.top {
+    height: 16vh;
+    font-size: 5vh;
+}
+
+input {
+    box-sizing: border-box;
+}
+
+button {
+    padding: 0;
+    margin: 0;
+}
+button:hover {
+    padding: 10px;
 }

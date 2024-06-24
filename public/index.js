@@ -27,7 +27,7 @@ function initBoard() {
     var board = document.getElementById("bgrid");
     for(var i = 0; i < 6; i++) {
         for(var j = 0; j < 7; j++) {
-            board.innerHTML += "<img class=\"board\" src=\"textures/placeholder.jfif\" alt=\"what\">";
+            board.innerHTML += "<img class=\"board\" src=\"textures/empty_tile.jpg\" alt=\"what\">";
         }
     }
 }
