@@ -19,6 +19,11 @@ app.get('/read', (req, res) => {
     });
 });
 
+app.get('/', function(req,res) {
+    console.log("User connected!");
+    res.send("Hallo");
+})
+
 // Endpoint to write to a file
 app.post('/write', (req, res) => {
     const filePath = path.join(__dirname, 'data', 'state.txt');
