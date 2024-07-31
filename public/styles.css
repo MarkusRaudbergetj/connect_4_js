@@ -22,17 +22,25 @@ img {
 
 .top {
     height: 16vh;
-    font-size: 5vh;
+    font-size: 4vh;
 }
 
 input {
     box-sizing: border-box;
 }
 
-button {
+.buttons {
     padding: 0;
     margin: 0;
 }
-button:hover {
+.buttons:hover {
     padding: 10px;
+}
+
+.clear {
+    width: 100vw;
+    height: 7vh;
+    text-align: center;
+    font-size: 3vh;
+    background-color: red;
 }

@@ -10,19 +10,13 @@
     <body>
         <div class="top">
             <label for="p1">Player 1</label>
-            <input type="checkbox" id="p1">
+            <input type="checkbox" id="p1" name="p1">
             <label for="p2">Player 2</label>
-            <input type="checkbox" id="p2">
-            <div id="turnDisplay"> 's Turn</div>
+            <input type="checkbox" id="p2" name="p2">
+            <div id="turnDisplay"></div>
+            <button class="clear" onclick="clearBoard()">Clear</button>
+            <br>
         </div>      
-        <div class="board" id="bgrid">
-            <button class="buttons"><img src="textures/downArror.jpg"></button>
-            <button class="buttons"><img src="textures/downArror.jpg"></button>
-            <button class="buttons"><img src="textures/downArror.jpg"></button>
-            <button class="buttons"><img src="textures/downArror.jpg"></button>
-            <button class="buttons"><img src="textures/downArror.jpg"></button>
-            <button class="buttons"><img src="textures/downArror.jpg"></button>
-            <button class="buttons"><img src="textures/downArror.jpg"></button>
-        </div>
+        <div class="board" id="bgrid"></div>
     </body>
 </html>

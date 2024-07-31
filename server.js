@@ -7,34 +7,53 @@ const port = 3000;
 app.use(express.json());
 app.use(express.static('public'));
 
-// Endpoint to read a file
-app.get('/read', (req, res) => {
-    const filePath = path.join(__dirname, 'data', 'state.txt');
-    fs.readFile(filePath, 'utf8', (err, data) => {
-        if (err) {
+function read(path, res) {
+    fs.readFile(path, 'utf-8', (err, data) => {
+        if(err) {
             res.status(500).send('Error reading file');
         } else {
             res.send(data);
         }
-    });
+    })
+}
+
+function write(path, text, res) {
+    fs.writeFile(path, text, (err) => {
+        if(err) {
+            res.status(500).send("Error writing file");
+        } else {
+            res.send("File written succesfully");
+        }
+    })
+}
+
+app.get('/player', (req, res) => {
+    const filePath = path.join(__dirname, 'data', 'player.txt');
+    read(filePath, res);
+})
+
+app.get('/read', (req, res) => {
+    const filePath = path.join(__dirname, 'data', 'state.txt');
+    read(filePath, res);
 });
 
 app.get('/', function(req,res) {
-    console.log("User connected!");
-    res.send("Hallo");
+    const filePath = path.join(__dirname, 'public', 'index.html');
+    fs.readFile(filePath, 'utf8', (err, data) => {
+	    res.send(data);
+    });
 })
 
-// Endpoint to write to a file
+app.post('/setPlayer', (req, res) => {
+    const filepath = path.join(__dirname, 'data', 'player.txt');
+    const { text } = req.body;
+    write(filepath, text, res);
+})
+
 app.post('/write', (req, res) => {
     const filePath = path.join(__dirname, 'data', 'state.txt');
     const { text } = req.body;
-    fs.writeFile(filePath, text, (err) => {
-        if (err) {
-            res.status(500).send('Error writing file');
-        } else {
-            res.send('File written successfully');
-        }
-    });
+    write(filePath, text, res);
 });
 
 app.listen(port, () => {
