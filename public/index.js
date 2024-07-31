@@ -1,22 +1,31 @@
+// Board messurements
 const BOARD_WIDTH = 7;
 const BOARD_HEIGHT = 6;
 
+// File paths for the Tile jpgs
 const EMPTY_TILE = "textures/empty_tile.jpg"; 
 const RED_TILE = "textures/red_tile.jpg"; 
 const YELLOW_TILE = "textures/yellow_tile.jpg"; 
 
+// Codes, representing the color of a tile
 const EMPTY_CODE = 'e';
 const RED_CODE = 'r';
 const YELLOW_CODE = 'y';
 
+// Name of the two players
 const PLAYER_1 = "p1";
 const PLAYER_2 = "p2";
 
+// Routes set up in the server.js file
 const GAME_STATE_ROUTE = "/read";
 const SET_GAME_STATE_ROUTE = "/write";
 const PLAYER_ROUTE = "/player";
 const SET_PLAYER_ROUTE = "/setPlayer";
 
+/**
+ * Set up the main gameloop by adding EventListeners and updates each players display every 500 ms
+ * if the turn has changed using setTurn()
+ */
 window.onload = async function() {
     await displayButtons();
     await initBoard();
@@ -39,8 +48,8 @@ window.onload = async function() {
 
     for(let i = 0; i < buttons.length; i++) {
         buttons[i].addEventListener('click', () => {
-            var row = parseInt(buttons[i].classList.item(1))
-            makeMove(row);
+            var colum = parseInt(buttons[i].classList.item(1))
+            makeMove(colum);
         });
     }
 
@@ -59,6 +68,10 @@ window.onload = async function() {
     
 };
 
+/**
+ * Sets the Turn displays innerHTML to display whoese turn it is
+ * @param {String} plr the player whose name is displayed on the Turn display
+ */
 function setTurnDisplay(plr) {
     var display = document.getElementById("turnDisplay");
 
@@ -69,10 +82,15 @@ function setTurnDisplay(plr) {
     }
 }
 
-async function makeMove(row) {
+/**
+ * places a piece in the last free tile in an inputted row
+ * @param {Number} colum which colum the player places a piece 
+ * @returns {Promise<boolean>} returns wheater or not the move was succesful
+ */
+async function makeMove(colum) {
     var tileCode = EMPTY_CODE
     var gameState = await readFile(GAME_STATE_ROUTE);
-    var moveIdx = await getEmpyIndexInRow(row);
+    var moveIdx = await getEmpyIndexIncolum(colum);
     var plr = await getLocalPlayer();
     var turn = await getTurn();
 
@@ -95,15 +113,27 @@ async function makeMove(row) {
     return true;
 }
 
+/**
+ * overwrites a char/string in a string at a inputted index
+ * @param {String} original the original string
+ * @param {String} mod the char/string 
+ * @param {Number} idx the index where mod is overidden
+ * @returns {String} the modified string
+ */
 function modifyStr(original, mod, idx) {
     original = original.substring(0, idx) + mod + original.substring(idx + 1);
     return original;
 }
 
-async function getEmpyIndexInRow(row) {
+/**
+ * Calculates the index of the last free tile in a colum
+ * @param {Number} colum the number of the colum
+ * @returns {Number} the calulated index
+ */
+async function getEmpyIndexIncolum(colum) {
     var state = await readFile(GAME_STATE_ROUTE);
     var lastIdx = -1;
-    for(let i = row - 1; i < BOARD_WIDTH * BOARD_HEIGHT; i += BOARD_WIDTH) {
+    for(let i = colum - 1; i < BOARD_WIDTH * BOARD_HEIGHT; i += BOARD_WIDTH) {
         if(state[i] != EMPTY_CODE) {
             break;
         }
@@ -114,6 +144,10 @@ async function getEmpyIndexInRow(row) {
     return lastIdx;
 }
 
+/**
+ * Set the local player and checks the checkboxes correctly
+ * @param {String} plr the player which is selected
+ */
 function setLocalPlayer(plr) {
     var box1 = document.getElementById(PLAYER_1);
     var box2 = document.getElementById(PLAYER_2);
@@ -128,6 +162,10 @@ function setLocalPlayer(plr) {
     }
 }
 
+/**
+ * Reads the checkbox states and calulates the selected player
+ * @returns the selected player
+ */
 function getLocalPlayer() {
     var box1 = document.getElementById(PLAYER_1);
     var box2 = document.getElementById(PLAYER_2);
@@ -145,6 +183,11 @@ function getLocalPlayer() {
     return false;
 }
 
+/**
+ * writes an inputed text to a file on the server using an inputted route
+ * @param {String} text2write the text to write
+ * @param {String} route the route
+ */
 async function writeFile(text2write, route) {
     var response = await fetch(route, {
         method: 'POST',
@@ -156,24 +199,41 @@ async function writeFile(text2write, route) {
     const result = await response.text();
 }
 
+/**
+ * sets the turn to the inputted player and writes it to the player.txt file on the server
+ * @param {String} plr the player
+ */
 async function setTurn(plr) {
     if (plr == PLAYER_1 || plr == PLAYER_2) {
         writeFile(plr, SET_PLAYER_ROUTE);
     }
 }
 
+/**
+ * Reads the player.txt
+ * @returns {String} the players name whose turn it is
+ */
 async function getTurn() {
     var response = await fetch("/player");
     var text = response.text();
     return text;
 }
 
+/**
+ * Reads a file on the server using an inputted route
+ * @param {String} route the route
+ * @returns {String} the read text
+ */
 async function readFile(route) {
     var response = await fetch(route);
     var text = response.text();
     return text;
 }
 
+/**
+ * Reads the gamestate from the server and adjusts the images of the tile
+ * according to the gamestate values
+ */
 async function displayFile() {
     var tiles = document.getElementsByClassName("tile");
     var data = await readFile(GAME_STATE_ROUTE); 
@@ -193,6 +253,9 @@ async function displayFile() {
     }
 }
 
+/**
+ * Resets the gamestate to all empty tiles and sets the turn to the other player
+ */
 async function clearBoard() {
     var str = ""
     for(let i = 0; i < BOARD_HEIGHT * BOARD_WIDTH; i++) {
@@ -208,6 +271,9 @@ async function clearBoard() {
     }
 }
 
+/**
+ * Generates the buttons in the "bgrid" div
+ */
 function displayButtons() {
     var board = document.getElementById("bgrid");
     
@@ -216,6 +282,9 @@ function displayButtons() {
     }
 }
 
+/**
+ * Generates all tiles in the "bgrid" div
+ */
 function initBoard() {
     var board = document.getElementById("bgrid");
     for(var i = 0; i < BOARD_HEIGHT; i++) {
