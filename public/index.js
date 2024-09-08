@@ -293,3 +293,55 @@ function initBoard() {
         }
     }
 }
+
+async function checkWin(plr) {
+    var checkSimbol = plr == PLAYER_1 ? RED_CODE : YELLOW_CODE;
+    var state = await readFile(GAME_STATE_ROUTE);
+
+    var row = 1;
+    var col = 1;
+    var lastRow = 1; 
+    var count = 0;
+
+    // Check Horizontanl
+    for(let i = 0; i < state.length; i++) {
+        if(state[i] == checkSimbol ) {
+            count++;
+        } else {
+            count = 0;
+        }
+
+        console.log(`Row: ${row} Col: ${col} Count: ${count} Color: ${state[i]}`);
+
+        if(count >= 4) {
+            return plr;
+        }
+
+        lastRow = row;
+        if(col == BOARD_WIDTH) {
+            row++;
+            col = 0; 
+            count = 0;
+        }
+        col++;
+    }
+
+    row = 1;
+    col = 1;
+    lastRow = 1; 
+    count = 0;
+
+    // Check Vertical
+    for(let i = 0; i < state.length; i++) {
+        if(state[i] == checkSimbol) {
+            count++;
+        } else {
+            count = 0;
+        }
+        
+        i += BOARD_HEIGHT;
+    }
+
+
+    return false;
+}
