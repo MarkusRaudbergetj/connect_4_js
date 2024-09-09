@@ -1,0 +1,47 @@
+server {
+	listen 80 default_server;
+	listen [::]:80 default_server;
+
+	server_name test.domain.com;
+
+	location / {
+		proxy_pass http://localhost:3000;
+		try_files $uri $uri/ =404;
+	}
+	location /styles.css {
+		proxy_pass http://localhost:3000/styles.css;
+	}
+	location /index.js {
+		proxy_pass http://localhost:3000/index.js;
+	}
+	location /read {
+		proxy_pass http://localhost:3000/read;
+	}
+	location /write {
+		proxy_pass http://localhost:3000/write;
+	}
+	location /player {
+		proxy_pass http://localhost:3000/player;
+	}
+	location /setPlayer {
+		proxy_pass http://localhost:3000/setPlayer;
+	}
+	location /textures/empty_tile.jpg {
+		proxy_pass http://localhost:3000/textures/empty_tile.jpg;
+	}
+	location /textures/downArror.jpg {
+		proxy_pass http://localhost:3000/textures/downArror.jpg;
+	}
+	location /textures/yellow_tile.jpg {
+		proxy_pass http://localhost:3000/textures/yellow_tile.jpg;
+	}
+	location /textures/red_tile.jpg {
+		proxy_pass http://localhost:3000/textures/red_tile.jpg;
+	}
+#	location /textures/empty_tile.jpg {
+#		proxy_pass http://localhost:3000/textures/empty_tile.jpg;
+#	}
+
+}
+
+
