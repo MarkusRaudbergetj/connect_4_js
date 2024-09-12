@@ -311,7 +311,7 @@ async function checkWin(plr) {
             count = 0;
         }
 
-        console.log(`Row: ${row} Col: ${col} Count: ${count} Color: ${state[i]}`);
+       // console.log(`Row: ${row} Col: ${col} Count: ${count} Color: ${state[i]}`);
 
         if(count >= 4) {
             return plr;
@@ -327,19 +327,68 @@ async function checkWin(plr) {
     }
 
     row = 1;
-    col = 1;
-    lastRow = 1; 
     count = 0;
 
     // Check Vertical
-    for(let i = 0; i < state.length; i++) {
+    for(let i = 0; i < state.length - 1; i++) {
         if(state[i] == checkSimbol) {
             count++;
         } else {
             count = 0;
         }
-        
-        i += BOARD_HEIGHT;
+
+        //console.log(`i: ${i} Row: ${row} Col: ${col} Count: ${count} Color: ${state[i]}`);
+
+        if(count >= 4) {
+            return plr;
+        }
+
+        if(i == 35 + row - 1) {
+            i -= 35;
+            row++;
+            count = 0;
+        } else {
+            i += BOARD_HEIGHT;
+        }
+    }
+
+    count = 0;
+
+    // Check Diagonal
+    for(let i = 0; i < BOARD_WIDTH; i++) {
+        // Left to right
+        for(let j = i; j < state.length; j = j + 8) {
+            if(state[i + j] == checkSimbol) {
+                count++;
+            } else {
+                count = 0;
+            }
+            //console.log(`i: ${i} j: ${j} Count: ${count} Color: ${state[i + j]}`);
+
+            if (count >= 4) {
+                return plr;
+            }
+        }
+
+        count = 0;
+    
+        // Right to left
+        if(i < 4) {
+            continue;
+        }
+        for(let j = i - 1; j < state.length - 1; j = j + 6) {
+            if(state[j] == checkSimbol) {
+                count++;
+            } else {
+                count = 0;
+            }
+
+            console.log(`i: ${i} j: ${j} Count: ${count} Color: ${state[i + j]}`);
+
+            if(count >= 4) {
+                return plr;
+            }
+        }
     }
 
 
