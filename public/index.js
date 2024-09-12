@@ -79,6 +79,8 @@ function setTurnDisplay(plr) {
         display.innerHTML = "Player 1's turn";
     } else if(plr == PLAYER_2) {
         display.innerHTML = "Player 2's turn";
+    } else {
+        display.innerHTML = plr;
     }
 }
 
@@ -110,6 +112,7 @@ async function makeMove(colum) {
     gameState = modifyStr(gameState, tileCode, moveIdx);
 
     await writeFile(gameState, SET_GAME_STATE_ROUTE);
+
     return true;
 }
 
@@ -216,6 +219,11 @@ async function setTurn(plr) {
 async function getTurn() {
     var response = await fetch("/player");
     var text = response.text();
+    if(await checkWin(PLAYER_1)) {
+        return `Player one has won the game!`;
+    } else if(await checkWin(PLAYER_2)) {
+        return `Player two has won the game!`;
+    }
     return text;
 }
 
