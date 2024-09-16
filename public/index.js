@@ -220,9 +220,9 @@ async function getTurn() {
     var response = await fetch("/player");
     var text = response.text();
     if(await checkWin(PLAYER_1)) {
-        return `Player one has won the game!`;
+        return `Player 1 has won the game!`;
     } else if(await checkWin(PLAYER_2)) {
-        return `Player two has won the game!`;
+        return `Player 2 has won the game!`;
     }
     return text;
 }
@@ -366,7 +366,7 @@ async function checkWin(plr) {
     for(let i = 0; i < BOARD_WIDTH; i++) {
         // Left to right
         for(let j = i; j < state.length; j = j + 8) {
-            if(state[i + j] == checkSimbol) {
+            if(state[j] == checkSimbol) {
                 count++;
             } else {
                 count = 0;
@@ -384,14 +384,14 @@ async function checkWin(plr) {
         if(i < 4) {
             continue;
         }
-        for(let j = i - 1; j < state.length - 1; j = j + 6) {
+        for(let j = i; j < state.length - 1; j = j + 6) {
             if(state[j] == checkSimbol) {
                 count++;
             } else {
                 count = 0;
             }
 
-            console.log(`i: ${i} j: ${j} Count: ${count} Color: ${state[i + j]}`);
+            console.log(`i: ${i} j: ${j} Count: ${count} Color: ${state[j]}`);
 
             if(count >= 4) {
                 return plr;
