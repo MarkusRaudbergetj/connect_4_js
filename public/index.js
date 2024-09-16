@@ -302,6 +302,11 @@ function initBoard() {
     }
 }
 
+/**
+ * Checks the gamestate if Player plr has won the game by counting the tiles in a row
+ * @param {string} plr 
+ * @returns {string} if the player has then the player is returned, otherwise fasle.
+ */
 async function checkWin(plr) {
     var checkSimbol = plr == PLAYER_1 ? RED_CODE : YELLOW_CODE;
     var state = await readFile(GAME_STATE_ROUTE);
@@ -358,6 +363,7 @@ async function checkWin(plr) {
 
     count = 0;
 
+    // Check Right to left diagonally
     let starts1 = [3,4,5,6,13,20];
     let end1 = [21,28,35,36,37,38];
 
@@ -378,6 +384,7 @@ async function checkWin(plr) {
         count = 0;
     }
 
+    // Check Left to right diagonally
     let starts2 = [0,1,2,3,7,14];
     let end2 = [27,34,38,39,40,41];
 
