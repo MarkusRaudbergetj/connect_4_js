@@ -319,8 +319,6 @@ async function checkWin(plr) {
             count = 0;
         }
 
-       // console.log(`Row: ${row} Col: ${col} Count: ${count} Color: ${state[i]}`);
-
         if(count >= 4) {
             return plr;
         }
@@ -344,8 +342,6 @@ async function checkWin(plr) {
         } else {
             count = 0;
         }
-
-        //console.log(`i: ${i} Row: ${row} Col: ${col} Count: ${count} Color: ${state[i]}`);
 
         if(count >= 4) {
             return plr;
