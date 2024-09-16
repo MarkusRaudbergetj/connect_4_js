@@ -362,43 +362,44 @@ async function checkWin(plr) {
 
     count = 0;
 
-    // Check Diagonal
-    for(let i = 0; i < BOARD_WIDTH; i++) {
-        // Left to right
-        for(let j = i; j < state.length; j = j + 8) {
+    let starts1 = [3,4,5,6,13,20];
+    let end1 = [21,28,35,36,37,38];
+
+    for(let i = 0; i < starts1.length; i++) {
+        for(let j = starts1[i]; j <= end1[i]; j = j + 6) {
             if(state[j] == checkSimbol) {
                 count++;
             } else {
                 count = 0;
             }
-            //console.log(`i: ${i} j: ${j} Count: ${count} Color: ${state[i + j]}`);
 
-            if (count >= 4) {
+            //console.log(`i: ${i} j: ${j} Count: ${count} Color: ${state[j]}`);
+
+            if(count >= 4) {
                 return plr;
             }
         }
-
         count = 0;
-    
-        // Right to left
-        if(i < 4) {
-            continue;
-        }
-        for(let j = i; j < state.length - 1; j = j + 6) {
+    }
+
+    let starts2 = [0,1,2,3,7,14];
+    let end2 = [27,34,38,39,40,41];
+
+    for(let i = 0; i < starts2.length; i++) {
+        for(let j = starts2[i]; j <= end2[i]; j = j + 8) {
             if(state[j] == checkSimbol) {
                 count++;
             } else {
                 count = 0;
             }
 
-            console.log(`i: ${i} j: ${j} Count: ${count} Color: ${state[j]}`);
+            console.log(`J: ${j} SYMBOL: ${state[j]} COUNT: ${count}`);
 
             if(count >= 4) {
                 return plr;
             }
         }
     }
-
-
+    
     return false;
 }
