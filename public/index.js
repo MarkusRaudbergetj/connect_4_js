@@ -3,9 +3,9 @@ const BOARD_WIDTH = 7;
 const BOARD_HEIGHT = 6;
 
 // File paths for the Tile jpgs
-const EMPTY_TILE = "textures/empty_tile.jpg"; 
-const RED_TILE = "textures/red_tile.jpg"; 
-const YELLOW_TILE = "textures/yellow_tile.jpg"; 
+const EMPTY_TILE = "images/empty_tile.jpg"; 
+const RED_TILE = "images/red_tile.jpg"; 
+const YELLOW_TILE = "images/yellow_tile.jpg"; 
 
 // Codes, representing the color of a tile
 const EMPTY_CODE = 'e';
@@ -286,7 +286,7 @@ function displayButtons() {
     var board = document.getElementById("bgrid");
     
     for(var i = 0; i < BOARD_WIDTH; i++) {
-        board.innerHTML += `<button class=\"buttons ${i + 1}\"><img src=\"textures/downArror.jpg\"></button>`;
+        board.innerHTML += `<button class=\"buttons ${i + 1}\"><img src=\"images/downArror.jpg\"></button>`;
     }
 }
 
@@ -297,7 +297,7 @@ function initBoard() {
     var board = document.getElementById("bgrid");
     for(var i = 0; i < BOARD_HEIGHT; i++) {
         for(var j = 0; j < BOARD_WIDTH; j++) {
-            board.innerHTML += "<img class=\"board tile\" src=\"textures/empty_tile.jpg\" alt=\"default\">";
+            board.innerHTML += "<img class=\"board tile\" src=\"images/empty_tile.jpg\" alt=\"default\">";
         }
     }
 }
@@ -396,7 +396,7 @@ async function checkWin(plr) {
                 count = 0;
             }
 
-            console.log(`J: ${j} SYMBOL: ${state[j]} COUNT: ${count}`);
+            //console.log(`J: ${j} SYMBOL: ${state[j]} COUNT: ${count}`);
 
             if(count >= 4) {
                 return plr;
